@@ -23,7 +23,7 @@ sudo apt update && sudo apt upgrade -y
 #----------------------------------------------------
 # Set hostname
 #----------------------------------------------------
-sudo hostnamectl set-hostname 
+sudo hostnamectl set-hostname sbc.example.com
 
 #----------------------------------------------------
 # Install some dependencies
@@ -36,3 +36,13 @@ sudo apt install -y git curl sngrep
 cd /opt && git clone https://github.com/dOpensource/dsiprouter -b master dsiprouter
 cd dsiprouter
 ./dsiprouter.sh install -all
+
+#----------------------------------------------------
+# Install ssl certificate
+#----------------------------------------------------
+certbot certonly -standalone -non-interactive -agree-tos -d example.com -m info@gmail.com
+
+nano dsiprouter.conf
+
+systemctl restart nginx
+
